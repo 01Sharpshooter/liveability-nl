@@ -1,33 +1,37 @@
-.liveability-region-1,
-.liveability-region-2,
-.liveability-region-3{
+.region-header-1,
+.region-header-2,
+.region-header-3{
     background-color: orangered;
     color: ghostwhite;
 }
 
-.liveability-region-4,
-.liveability-region-5,
-.liveability-region-6{
+.region-header-4,
+.region-header-5,
+.region-header-6{
     background-color: #ffffbe;
 }
 
-.liveability-region-7,
-.liveability-region-8,
-.liveability-region-9{
+.region-header-7,
+.region-header-8,
+.region-header-9{
     background-color: #93e667;
 }
 
-.liveability-region-1,
-.liveability-region-2,
-.liveability-region-3,
-.liveability-region-4,
-.liveability-region-5,
-.liveability-region-6,
-.liveability-region-7,
-.liveability-region-8,
-.liveability-region-9{
+.region-header-1,
+.region-header-2,
+.region-header-3,
+.region-header-4,
+.region-header-5,
+.region-header-6,
+.region-header-7,
+.region-header-8,
+.region-header-9{
     padding: 6px;
     margin-top: 6px;
     display: flex;
     flex-direction: column;
+}
+
+.liveability-region .region-content {
+    display: none;
 }

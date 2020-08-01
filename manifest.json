@@ -1,18 +1,23 @@
 {
-    "manifest_version": 2,
-   
-    "name": "Liveability NL",
-    "version": "0.1.0",
-    "description": "Liveability Scores for renting sites like Funda/Pararius.",
-   
-    "content_scripts": [{
-      "css": ["styles.css"],
-      "js": ["jquery-3.5.1.min.js","content.js"],
-      "matches": ["https://www.funda.nl/*"]
-    }],
-
-    "web_accessible_resources": [
-        "PC4LBR.csv"
+  "manifest_version": 2,
+  "name": "Liveability NL",
+  "version": "0.1.0",
+  "description": "Liveability Scores for renting sites like Funda/Pararius.",
+  "content_scripts": [
+    {
+      "css": [
+        "styles.css"
+      ],
+      "js": [
+        "jquery-3.5.1.min.js",
+        "content.js"
+      ],
+      "matches": [
+        "https://www.funda.nl/*"
       ]
-   
-  }
+    }
+  ],
+  "web_accessible_resources": [
+    "PC4LBR.csv"
+  ]
+}
