@@ -21,22 +21,26 @@ observer.observe(e, {
 
 const addRegion = () => {
     $.each($(".search-result"), function () {
-        var zipCode = $(this).find(".search-result__header-subtitle.fd-m-none").text().trim().substring(0, 4);
-        var i;
-        var klScore;
-        var vklScore;
-        for (i = 1; i < csv.length; i++) {
+        const zipCode = $(this).find(".search-result__header-subtitle.fd-m-none").text().trim().substring(0, 4);
+        for (var i = 1; i < csv.length; i++) {
             if (csv[i].startsWith(zipCode)) {
-                klScore = csv[i].split(',')[klIndex];
-                vklScore = csv[i].split(',')[vklIndex];
+                var klScore = csv[i].split(',')[klIndex];
+                var vklScore = csv[i].split(',')[vklIndex];
                 break;
             }
         }
-        $(this).append(`<div class="liveability-region-${klScore}">
-                        Liveability Score: ${klScore || 'N/A'}
-                        </br>
-                        Development Score: ${vklScore || 'N/A'}
-                        </div>`);
+
+        const region = document.createElement("div");
+        const liveabilitySpan = document.createElement("span");
+        liveabilitySpan.innerHTML = `Liveability Score: ${klScore || 'N/A'}`;
+        const developmentSpan = document.createElement("span");
+        developmentSpan.innerHTML = `Development Score: ${vklScore || 'N/A'}`;
+
+        region.setAttribute("class", `liveability-region-${klScore}`)
+        region.appendChild(liveabilitySpan);
+        region.appendChild(developmentSpan);
+
+        $(this).append(region)
     });
 }
 
