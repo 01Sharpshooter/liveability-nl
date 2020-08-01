@@ -18,6 +18,7 @@
     }
   ],
   "web_accessible_resources": [
-    "PC4LBR.csv"
+    "PC4LBR.csv",
+    "PC4DIMENSIE.csv"
   ]
 }
