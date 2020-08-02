@@ -13,6 +13,14 @@
       ]
     },
     {
+      "js": [
+        "settings/pararius.js"
+      ],
+      "matches": [
+        "https://www.pararius.com/*"
+      ]
+    },
+    {
       "css": [
         "styles/styles.css",
         "styles/spinner.css"

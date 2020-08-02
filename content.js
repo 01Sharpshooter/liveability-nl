@@ -7,20 +7,15 @@ var csvBasicRows;
 var csvDetailedRows;
 
 var timer;
-var e = document.getElementsByClassName(Settings.RELOAD_SELECTOR_NODE)[0];
+var e = $(Settings.OBSERVER_SELECTOR)[0];
 var observer = new MutationObserver(function (event) {
   if (timer) clearTimeout(timer);
   timer = setTimeout(() => {
     addLiveabilityRegions();
-  }, 200);
+  }, 500);
 })
 
-observer.observe(e, {
-  attributes: true,
-  attributeFilter: ['class'],
-  childList: false,
-  characterData: false
-});
+observer.observe(e, Settings.OBSERVER_OPTIONS);
 
 const addLiveabilityRegions = () => {
   let regionNumber = 1;
