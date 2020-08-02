@@ -21,7 +21,7 @@ const addLiveabilityRegions = () => {
   let regionNumber = 1;
   $.each($(Settings.RESULT_SELECTOR), function () {
     const mapChartResults = new Map();
-    const zipCode = $(this).find(Settings.ZIPCODE_SELECTOR).text().trim().substring(0, 4);
+    const zipCode = $(this).find(Settings.ZIPCODE_SELECTOR)[0].lastChild.nodeValue.trim().substring(0, 4);
 
     for (var i = 1; i < csvBasicRows.length; i++) {
       if (csvBasicRows[i].startsWith(zipCode)) {
