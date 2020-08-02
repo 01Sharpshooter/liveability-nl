@@ -17,6 +17,24 @@
     background-color: #93e667;
 }
 
+.chart-1,
+.chart-2,
+.chart-3{
+    background-color: #ff45000f;
+}
+
+.chart-4,
+.chart-5,
+.chart-6{
+    background-color: #ffffe06b;
+}
+
+.chart-7,
+.chart-8,
+.chart-9{
+    background-color: #93e66724;
+}
+
 .region-header-1,
 .region-header-2,
 .region-header-3,
@@ -29,9 +47,29 @@
     padding: 6px;
     margin-top: 6px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.region-header-1:hover,
+.region-header-2:hover,
+.region-header-3:hover,
+.region-header-4:hover,
+.region-header-5:hover,
+.region-header-6:hover,
+.region-header-7:hover,
+.region-header-8:hover,
+.region-header-9:hover{
+    filter: brightness(95%);
+    cursor: pointer;
 }
 
 .liveability-region .region-content {
     display: none;
+    overflow: hidden;
+}
+
+.liveability-region .region-header-text {
+    display: flex;
+    flex-direction: column;
 }

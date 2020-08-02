@@ -6,7 +6,8 @@
   "content_scripts": [
     {
       "css": [
-        "styles.css"
+        "styles.css",
+        "spinner.css"
       ],
       "js": [
         "jquery-3.5.1.min.js",
