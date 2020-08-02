@@ -1,4 +1,6 @@
-document.body.appendChild(document.createElement('script')).src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js';
+const chartScript = document.createElement('script');
+chartScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js';
+document.body.appendChild(chartScript);
 
 const CSVColumns = Object.freeze({
   SCORE18: "KL18",
@@ -23,6 +25,28 @@ const CSVColumns = Object.freeze({
   SERVICES18: "RLBVRZ18",
   SAFETY18: "RLBVEI18",
   ENVIRONMENT18: "RLBFYS18"
+});
+
+const LiveabilityScoreMeaning = Object.freeze({
+  1: "Lowest",
+  2: "Very Low",
+  3: "Low",
+  4: "Okay",
+  5: "Mostly Sufficient",
+  6: "Sufficient",
+  7: "Good",
+  8: "Very Good",
+  9: "Exceptional"
+});
+
+const DevelopmentScoreMeaning = Object.freeze({
+  1: "Big Decline",
+  2: "Decline",
+  3: "Small Decline",
+  4: "No Changes",
+  5: "Small Progress",
+  6: "Progress",
+  7: "Huge Progress"
 });
 
 var mapScoreDevIndex = new Map();
@@ -52,6 +76,15 @@ observer.observe(e, {
 const getChart = (canvasId, chartMap) => {
   var script = document.createElement("script");
   var chartText = document.createTextNode(`
+  var ChartScoreMeaning = Object.freeze({
+    "0": "National Average",
+    "0.05": "Slightly Above Average",
+    "0.1": "Above Average",
+    "0.2": "Highly Above Average",
+    "-0.05": "Slightly Below Average",
+    "-0.1": "Below Average",
+    "-0.2": "Way Below Average"
+  });
     new Chart(document.getElementById("${canvasId}"), {
         type: 'line',
         data: {
@@ -93,7 +126,14 @@ const getChart = (canvasId, chartMap) => {
         options: {
           title: {
             display: true,
-            text: 'Liveability scores compared to the national average (Line 0)'
+            text: 'Liveability scores compared to the national average'
+          },
+          legend: {
+            labels: {
+              filter: function(item, chart) {
+                  return !item.text.includes('National Average');
+              }
+            }
           },
           animation: {
             duration: 0
@@ -102,8 +142,9 @@ const getChart = (canvasId, chartMap) => {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    min: -0.5,
-                    max: 0.5
+                    callback: function(value, index, values) {
+                      return ChartScoreMeaning[value.toString()]
+                    }
                 }
             }]
           }
@@ -144,9 +185,9 @@ const addRegion = () => {
     const regionContent = document.createElement("div");
     const canvas = document.createElement("canvas");
     const liveabilitySpan = document.createElement("span")
-    liveabilitySpan.innerHTML = `Liveability Score: ${liveabilityScore || 'N/A'}`;
+    liveabilitySpan.innerHTML = `Liveability: ${LiveabilityScoreMeaning[liveabilityScore] || 'N/A'}`;
     const developmentSpan = document.createElement("span");
-    developmentSpan.innerHTML = `Development Score: ${developmentScore || 'N/A'}`;
+    developmentSpan.innerHTML = `Improvement: ${DevelopmentScoreMeaning[developmentScore] || 'N/A'}`;
 
     headerText.appendChild(liveabilitySpan);
     headerText.appendChild(developmentSpan);
@@ -164,7 +205,7 @@ const addRegion = () => {
       }
       $header = $(this);
       $content = $header.next();
-      $content.slideToggle(250, () => { $(spinner).hide(); });
+      $content.slideToggle(400, () => { $(spinner).hide(); });
     });
 
     canvas.id = `liveability-chart-${regionNumber}`;
