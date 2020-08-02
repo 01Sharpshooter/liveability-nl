@@ -10,7 +10,7 @@
         "styles/spinner.css"
       ],
       "js": [
-        "jquery-3.5.1.min.js",
+        "lib/jquery-3.5.1.min.js",
         "util/constants.js",
         "content.js"
       ],
