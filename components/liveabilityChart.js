@@ -13,10 +13,8 @@ const createChart = (chartId, chartClass, chartMap) => {
     const chartText = document.createTextNode(`
     var ChartScoreMeaning = Object.freeze({
       "0": "National Average",
-      "0.05": "Slightly Above Average",
       "0.1": "Above Average",
       "0.2": "Highly Above Average",
-      "-0.05": "Slightly Below Average",
       "-0.1": "Below Average",
       "-0.2": "Way Below Average"
     });
@@ -69,6 +67,30 @@ const createChart = (chartId, chartClass, chartMap) => {
                     return !item.text.includes('National Average');
                 }
               }
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        const value = parseFloat(tooltipItem.value);
+                        if(value >= 0.2){
+                            return ChartScoreMeaning["0.2"];
+                        }else if(value >= 0.1){
+                            return ChartScoreMeaning["0.1"];
+                        }else if(value > 0){
+                            return "Slightly Above Average";
+                        }else if(value === 0){
+                            return ChartScoreMeaning["0"];
+                        }else if(value > -0.1){
+                            return "Slightly Below Average";
+                        }else if(value > -0.2){
+                            return ChartScoreMeaning["-0.1"];
+                        }else if(value <= -0.2){
+                            return ChartScoreMeaning["-0.2"];
+                        }else{
+                            return "";
+                        }
+                    }
+                }
             },
             animation: {
               duration: 0
