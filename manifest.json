@@ -5,17 +5,27 @@
   "description": "Liveability Scores for renting sites like Funda/Pararius.",
   "content_scripts": [
     {
+      "js": [
+        "settings/funda.js"
+      ],
+      "matches": [
+        "https://www.funda.nl/*"
+      ]
+    },
+    {
       "css": [
         "styles/styles.css",
         "styles/spinner.css"
       ],
       "js": [
+        "components/liveabilityChart.js",
         "lib/jquery-3.5.1.min.js",
         "util/constants.js",
+        "util/csvFunctions.js",
         "content.js"
       ],
       "matches": [
-        "https://www.funda.nl/*"
+        "<all_urls>"
       ]
     }
   ],
