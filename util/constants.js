@@ -41,6 +41,6 @@ const DevelopmentScoreMeaning = Object.freeze({
   3: "Small Decline",
   4: "No Changes",
   5: "Small Progress",
-  6: "Progress",
+  6: "Significant Progress",
   7: "Huge Progress"
 });
