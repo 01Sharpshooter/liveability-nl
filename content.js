@@ -52,8 +52,8 @@ const DevelopmentScoreMeaning = Object.freeze({
 var mapScoreDevIndex = new Map();
 var mapDetailsIndex = new Map();
 
-var urlBasicScores = chrome.runtime.getURL("PC4LBR.csv");
-var urlDetailedScores = chrome.runtime.getURL("PC4DIMENSIE.csv");
+var urlBasicScores = chrome.runtime.getURL("resources/PC4LBR.csv");
+var urlDetailedScores = chrome.runtime.getURL("resources/PC4DIMENSIE.csv");
 var csvBasic;
 var csvDetailed;
 
