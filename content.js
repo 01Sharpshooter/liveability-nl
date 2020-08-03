@@ -45,7 +45,6 @@ const addLiveabilityRegions = () => {
     const region = document.createElement("div");
     const regionHeader = document.createElement("div");
     const headerText = document.createElement("div");
-    const spinner = document.createElement("div");
     const regionContent = document.createElement("div");
     const liveabilitySpan = document.createElement("span")
     liveabilitySpan.innerHTML = `Liveability: ${LiveabilityScoreMeaning[liveabilityScore] || 'N/A'}`;
@@ -59,16 +58,10 @@ const addLiveabilityRegions = () => {
     regionHeader.setAttribute("class", `region-header-${liveabilityScore}`);
     regionHeader.appendChild(headerText);
 
-    spinner.setAttribute("class", `loader`);
-    regionHeader.appendChild(spinner)
-
     $(regionHeader).click(function () {
-      if (!$(regionContent).is(":visible")) {
-        $(spinner).show();
-      }
       $header = $(this);
       $content = $header.next();
-      $content.slideToggle(400, () => { $(spinner).hide(); });
+      $content.fadeToggle(200);
     });
 
     regionContent.setAttribute("class", `region-content`);
