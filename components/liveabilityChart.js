@@ -93,7 +93,7 @@ const createChart = (chartId, chartClass, chartMap) => {
                 }
             },
             animation: {
-              duration: 0
+              duration: 500
             },
             scales: {
               yAxes: [{

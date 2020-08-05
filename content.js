@@ -58,17 +58,18 @@ const addLiveabilityRegions = () => {
     regionHeader.setAttribute("class", `region-header-${liveabilityScore}`);
     regionHeader.appendChild(headerText);
 
-    $(regionHeader).click(function () {
-      $header = $(this);
-      $content = $header.next();
-      $content.fadeToggle(200);
-    });
-
     regionContent.setAttribute("class", `region-content`);
     const chartId = `liveability-chart-${regionNumber}`;
     const chartClass = `chart-${liveabilityScore}`;
 
-    setTimeout(() => { regionContent.appendChild(createChart(chartId, chartClass, mapChartResults)) }, 500);
+    let chart;
+    $(regionHeader).click(function () {
+      $(regionContent).fadeToggle(200);
+      if (!chart) {
+        chart = createChart(chartId, chartClass, mapChartResults);
+        regionContent.appendChild(chart);
+      }
+    });
 
     region.appendChild(regionHeader);
     region.appendChild(regionContent);
