@@ -23,10 +23,12 @@
     {
       "css": [
         "styles/styles.css",
-        "styles/spinner.css"
+        "styles/spinner.css",
+        "styles/dialog.css"
       ],
       "js": [
         "components/liveabilityChart.js",
+        "components/helpModal.js",
         "lib/jquery-3.5.1.min.js",
         "util/constants.js",
         "util/csvFunctions.js",
@@ -39,6 +41,7 @@
   ],
   "web_accessible_resources": [
     "resources/PC4LBR.csv",
-    "resources/PC4DIMENSIE.csv"
+    "resources/PC4DIMENSIE.csv",
+    "resources/help.html"
   ]
 }
