@@ -1,38 +1,99 @@
-.region-header-1,
-.region-header-2,
+:root{
+    --background-color-1: #730000; --color-1: ghostwhite;
+    --background-color-2: #e50000; --color-2: ghostwhite;
+    --background-color-3: #e1702e; --color-3: ghostwhite;
+    --background-color-4: #ffffbe; --color-4: inherit;
+    --background-color-5: #d3ffbe; --color-5: inherit;
+    --background-color-6: #93e667; --color-6: inherit;
+    --background-color-7: #55be00; --color-7: #002a15;
+    --background-color-8: #267300; --color-8: ghostwhite;
+    --background-color-9: #2d4900; --color-9: ghostwhite;
+}
+
+.region-header-1{
+    background-color: var(--background-color-1);
+    color: var(--color-1);
+}
+.region-header-2{
+    background-color: var(--background-color-2);
+    color: var(--color-2);
+}
 .region-header-3{
-    background-color: orangered;
-    color: ghostwhite;
+    background-color: var(--background-color-3);
+    color: var(--color-3);
 }
-
-.region-header-4,
-.region-header-5,
+.region-header-4{
+    background-color: var(--background-color-4);
+    color: var(--color-4);
+}
+.region-header-5{
+    background-color: var(--background-color-5);
+    color: var(--color-5);
+}
 .region-header-6{
-    background-color: #ffffbe;
+    background-color: var(--background-color-6);
+    color: var(--color-6);
+}
+.region-header-7{
+    background-color: var(--background-color-7);
+    color: var(--color-7);
+}
+.region-header-8{
+    background-color: var(--background-color-8);
+    color: var(--color-8);
+}
+.region-header-9{
+    background-color: var(--background-color-9);
+    color: var(--color-9);
 }
 
-.region-header-7,
-.region-header-8,
-.region-header-9{
-    background-color: #93e667;
+.box-color-1{
+    background-color: var(--background-color-1);
+}
+.box-color-2{
+    background-color: var(--background-color-2);
+}
+.box-color-3{
+    background-color: var(--background-color-3);
+}
+.box-color-4{
+    background-color: var(--background-color-4);
+}
+.box-color-5{
+    background-color: var(--background-color-5);
+}
+.box-color-6{
+    background-color: var(--background-color-6);
+}
+.box-color-7{
+    background-color: var(--background-color-7);
+}
+.box-color-8{
+    background-color: var(--background-color-8);
+}
+.box-color-9{
+    background-color: var(--background-color-9);
 }
 
 .chart-1,
-.chart-2,
-.chart-3{
+.chart-2{
     background-color: #ff45000f;
 }
-
-.chart-4,
-.chart-5,
-.chart-6{
-    background-color: #ffffe06b;
+.chart-3{
+    background-color: #ff450008;
 }
 
+.chart-4{
+    background-color: #ffffe06b;
+}
+.chart-5,
+.chart-6,
 .chart-7,
-.chart-8,
+.chart-8{
+    background-color: #93e66726;
+}
 .chart-9{
-    background-color: #93e66724;
+    background-color: #2d490014;
 }
 
 .region-header-1,
@@ -72,4 +133,13 @@
 .liveability-region .region-header-text {
     display: flex;
     flex-direction: column;
+}
+
+.box {
+    height: 1em;
+    width: 1em;
+    margin-bottom: -0.1em;
+    border: 1px solid black;
+    display: inline-block;
+    margin-right: 0.2em;
 }
