@@ -20,8 +20,8 @@ const createHelpDialog = () => {
 
         const liveabilityClasses = helpDialogDiv.getElementsByClassName("liveability-classes")[0];
         let classesList = "";
-        Object.values(LiveabilityScoreMeaning).forEach((liveabilityClass) => {
-            classesList += `<li>${liveabilityClass}</li>`;
+        Object.entries(LiveabilityScoreMeaning).forEach((liveabilityClass) => {
+            classesList += `<li><div class="box box-color-${liveabilityClass[0]}"></div>${liveabilityClass[1]}</li>`;
         });
         liveabilityClasses.innerHTML = classesList;
         helpDialogDiv = document.body.appendChild(helpDialogDiv);
