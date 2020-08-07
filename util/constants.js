@@ -44,3 +44,11 @@ const DevelopmentScoreMeaning = Object.freeze({
   6: "Significant Progress",
   7: "Huge Progress"
 });
+
+const ChartCategories = Object.freeze({
+  HOUSES: {label:"Houses", color:"#3e95cd"},
+  RESIDENTS: {label:"Residents", color:"#8e5ea2"},
+  SERVICES: {label:"Services", color:"#3cba9f"},
+  SAFETY: {label:"Safety", color:"#F1C40F"},
+  ENVIRONMENT: {label:"Environment", color:"#c45850"}
+});
