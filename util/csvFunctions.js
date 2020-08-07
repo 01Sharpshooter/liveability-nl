@@ -3,7 +3,7 @@ const csvRowArrayToColumnIndexMap = (csvColumns, csvRowArray) => {
     const map = new Map();
     header[header.length - 1] = header[header.length - 1].trim();
   
-    for (const [key, value] of Object.entries(csvColumns)) {
+    for (const value of Object.values(csvColumns)) {
       map.set(value, header.indexOf(value));
     }
   
