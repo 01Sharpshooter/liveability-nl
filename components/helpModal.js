@@ -7,7 +7,7 @@ const createHelpDialog = () => {
     }
 
     helpDialogDiv = document.createElement("div");
-    helpDialogDiv.className = "liveability-help-modal";
+    helpDialogDiv.className = "liveability-help-modal-container";
     helpDialogDiv.id = "liveability-help-dialog";
 
     $.get(urlHelpHtml, function (html) {
@@ -24,6 +24,23 @@ const createHelpDialog = () => {
             classesList += `<li><div class="box box-color-${liveabilityClass[0]}"></div>${liveabilityClass[1]}</li>`;
         });
         liveabilityClasses.innerHTML = classesList;
+
+        const improvementClasses = helpDialogDiv.getElementsByClassName("improvement-classes")[0];
+        classesList = "";
+        Object.values(DevelopmentScoreMeaning).forEach((improvementClass) => {
+            classesList += `<li>${improvementClass}</li>`;
+        });
+        improvementClasses.innerHTML = classesList;
+
+        const underlyingCategories = helpDialogDiv.getElementsByClassName("underlying-categories")[0];
+        classesList = "";
+        Object.values(ChartCategories).forEach((category) => {
+            classesList += `<li><div class="box" style="background-color: ${category.color};"></div>${category.label}</li>`;
+        });
+        underlyingCategories.innerHTML = classesList;
+
+        helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = chrome.runtime.getURL("resources/chart-picture.png");
+
         helpDialogDiv = document.body.appendChild(helpDialogDiv);
 
     }, 'text');

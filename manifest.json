@@ -43,6 +43,7 @@
   "web_accessible_resources": [
     "resources/PC4LBR.csv",
     "resources/PC4DIMENSIE.csv",
+    "resources/chart-picture.png",
     "resources/help.html"
   ]
 }
