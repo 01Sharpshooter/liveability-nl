@@ -24,10 +24,10 @@ const CSVColumns = Object.freeze({
 });
 
 const LiveabilityScoreMeaning = Object.freeze({
-  1: "Lowest",
-  2: "Very Low",
-  3: "Low",
-  4: "Okay",
+  1: "Very Insufficient",
+  2: "Insufficient",
+  3: "Slightly Insufficient",
+  4: "Weak",
   5: "Mostly Sufficient",
   6: "Sufficient",
   7: "Good",
