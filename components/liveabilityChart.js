@@ -30,28 +30,28 @@ const createChart = (chartId, chartClass, chartMap) => {
                 fill: false
               }, { 
                 data: [${chartMap.get(CSVColumns.HOUSES12)},${chartMap.get(CSVColumns.HOUSES14)},${chartMap.get(CSVColumns.HOUSES16)},${chartMap.get(CSVColumns.HOUSES18)}],
-                label: "Houses",
-                borderColor: "#3e95cd",
+                label: "${ChartCategories.HOUSES.label}",
+                borderColor: "${ChartCategories.HOUSES.color}",
                 fill: false
               }, { 
                 data: [${chartMap.get(CSVColumns.RESIDENTS12)},${chartMap.get(CSVColumns.RESIDENTS14)},${chartMap.get(CSVColumns.RESIDENTS16)},${chartMap.get(CSVColumns.RESIDENTS18)}],
-                label: "Residents",
-                borderColor: "#8e5ea2",
+                label: "${ChartCategories.RESIDENTS.label}",
+                borderColor: "${ChartCategories.RESIDENTS.color}",
                 fill: false
               }, { 
                 data: [${chartMap.get(CSVColumns.SERVICES12)},${chartMap.get(CSVColumns.SERVICES14)},${chartMap.get(CSVColumns.SERVICES16)},${chartMap.get(CSVColumns.SERVICES18)}],
-                label: "Services",
-                borderColor: "#3cba9f",
+                label: "${ChartCategories.SERVICES.label}",
+                borderColor: "${ChartCategories.SERVICES.color}",
                 fill: false
               }, { 
                 data: [${chartMap.get(CSVColumns.SAFETY12)},${chartMap.get(CSVColumns.SAFETY14)},${chartMap.get(CSVColumns.SAFETY16)},${chartMap.get(CSVColumns.SAFETY18)}],
-                label: "Safety",
-                borderColor: "#F1C40F",
+                label: "${ChartCategories.SAFETY.label}",
+                borderColor: "${ChartCategories.SAFETY.color}",
                 fill: false
               }, { 
                 data: [${chartMap.get(CSVColumns.ENVIRONMENT12)},${chartMap.get(CSVColumns.ENVIRONMENT14)},${chartMap.get(CSVColumns.ENVIRONMENT16)},${chartMap.get(CSVColumns.ENVIRONMENT18)}],
-                label: "Environment",
-                borderColor: "#c45850",
+                label: "${ChartCategories.ENVIRONMENT.label}",
+                borderColor: "${ChartCategories.ENVIRONMENT.color}",
                 fill: false
               }
             ]
