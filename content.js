@@ -6,6 +6,10 @@ var urlDetailedScores = chrome.runtime.getURL("resources/PC4DIMENSIE.csv");
 var csvBasicRows;
 var csvDetailedRows;
 
+const fontAwesomeLink = document.head.appendChild(document.createElement("link"));
+fontAwesomeLink.rel = "stylesheet";
+fontAwesomeLink.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css";
+
 var timer;
 var e = $(Settings.OBSERVER_SELECTOR)[0];
 var observer = new MutationObserver(function (event) {
@@ -61,6 +65,15 @@ const addLiveabilityRegions = () => {
     regionContent.setAttribute("class", `region-content`);
     const chartId = `liveability-chart-${regionNumber}`;
     const chartClass = `chart-${liveabilityScore}`;
+
+    const helpIcon = document.createElement("i");
+    helpIcon.className = "far fa-question-circle";
+    helpIcon.onclick = (event) => {
+      showHelpDialog();
+      event.stopPropagation();
+    };
+    helpIcon.title="Help";
+    regionHeader.append(helpIcon);
 
     let chart;
     $(regionHeader).click(function () {
