@@ -1,4 +1,5 @@
-var csvProcessed;
+var csvChartProcessed;
+var csvScoresProcessed;
 
 const fontAwesomeLink = document.head.appendChild(document.createElement("link"));
 fontAwesomeLink.rel = "stylesheet";
@@ -13,6 +14,23 @@ const getHelpIcon = () => {
     };
     helpIcon.title = "Help";
     return helpIcon;
+}
+
+const fetchScores = async (zipCode) => {
+    if (!csvScoresProcessed) {
+        csvScoresProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4LBR.csv"));
+    }
+
+    for (var i = 1; i < csvScoresProcessed.csvRows.length; i++) {
+        csvRow = csvScoresProcessed.csvRows[i];
+        if (csvRow.startsWith(zipCode)) {
+            const lineArray = csvRow.split(',');
+            const liveabilityScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.SCORE18)];
+            const developmentScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.DEVELOPMENT1418)];
+
+            return { liveabilityScore: liveabilityScore, developmentScore: developmentScore };
+        }
+    }
 }
 
 const getScoreDiv = (liveabilityScore, developmentScore) => {
@@ -40,28 +58,17 @@ const getLiveabilityHeader = (liveabilityScore, developmentScore) => {
     return regionHeader;
 }
 
-const fetchChartCSV = async () => {
-    const urlDetailedScores = chrome.runtime.getURL("resources/PC4DIMENSIE.csv");
-
-    const csv = await $.get(urlDetailedScores);
-
-    const csvRows = csvToArrayOfRows(csv);
-    const mapColumnIndex = csvRowArrayToColumnIndexMap(CSVColumns, csvRows);
-
-    csvProcessed = { csvRows: csvRows, mapColumnIndex: mapColumnIndex };
-}
-
 const fetchChartData = async (zipCode) => {
     const mapChartResults = new Map();
-    if (!csvProcessed) {
-        await fetchChartCSV();
+    if (!csvChartProcessed) {
+        csvChartProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4DIMENSIE.csv"));
     }
 
-    for (var i = 1; i < csvProcessed.csvRows.length; i++) {
-        csvRow = csvProcessed.csvRows[i];
+    for (var i = 1; i < csvChartProcessed.csvRows.length; i++) {
+        csvRow = csvChartProcessed.csvRows[i];
         if (csvRow.startsWith(zipCode)) {
             const lineArray = csvRow.split(',');
-            csvProcessed.mapColumnIndex.forEach((value, key) => {
+            csvChartProcessed.mapColumnIndex.forEach((value, key) => {
                 mapChartResults.set(key, lineArray[value]);
             })
             return mapChartResults;
@@ -88,22 +95,26 @@ const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
     return regionContent;
 }
 
-const getLiveabilityRegion = (liveabilityScore, developmentScore, regionNumber, zipCode) => {
+const getLiveabilityRegion = (regionNumber, zipCode) => {
     const region = document.createElement("div");
-    const regionHeader = getLiveabilityHeader(liveabilityScore, developmentScore);
+    region.setAttribute("class", `liveability-region`);
 
-    $(regionHeader).click(function () {
-        let regionContent = region.getElementsByClassName("region-content")[0];
+    fetchScores(zipCode).then((scores) => {
+        const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
 
-        if (!regionContent) {
-            regionContent = getRegionContent(liveabilityScore, regionNumber, zipCode);
-            region.appendChild(regionContent);
-        }
+        $(regionHeader).click(function () {
+            let regionContent = region.getElementsByClassName("region-content")[0];
 
-        $(regionContent).fadeToggle(200);
+            if (!regionContent) {
+                regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
+                region.appendChild(regionContent);
+            }
+
+            $(regionContent).fadeToggle(200);
+        });
+
+        region.appendChild(regionHeader);
     });
 
-    region.appendChild(regionHeader);
-    region.setAttribute("class", `liveability-region`);
     return region;
 }
