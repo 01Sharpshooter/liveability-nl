@@ -41,6 +41,18 @@ const createHelpDialog = () => {
 
         helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = chrome.runtime.getURL("resources/chart-picture.png");
 
+        $(document).keyup((e) => {
+            if (e.which == 27) {
+                helpDialogDiv.style.display = "none";
+            }
+        });
+
+        $(document).mouseup((e) => {
+            if ($(helpDialogDiv).has(e.target).length === 0) {
+                helpDialogDiv.style.display = "none";
+            }
+        });
+
         helpDialogDiv = document.body.appendChild(helpDialogDiv);
 
     }, 'text');
