@@ -21,17 +21,13 @@ const fetchScores = async (zipCode) => {
         csvScoresProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4LBR.csv"));
     }
 
-    for (var i = 1; i < csvScoresProcessed.csvRows.length; i++) {
-        csvRow = csvScoresProcessed.csvRows[i];
-        if (csvRow.startsWith(zipCode)) {
-            const lineArray = csvRow.split(',');
-            const liveabilityScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.SCORE18)];
-            const developmentScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.DEVELOPMENT1418)];
+    const lineArray = csvScoresProcessed.csvZipCodeRowMap.get(zipCode).split(',');
+    const liveabilityScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.SCORE18)];
+    const developmentScore = lineArray[csvScoresProcessed.mapColumnIndex.get(CSVColumns.DEVELOPMENT1418)];
 
-            return { liveabilityScore: liveabilityScore, developmentScore: developmentScore };
-        }
-    }
+    return { liveabilityScore: liveabilityScore, developmentScore: developmentScore };
 }
+
 
 const getScoreDiv = (liveabilityScore, developmentScore) => {
     const scoreDiv = document.createElement("div");
@@ -66,18 +62,12 @@ const fetchChartData = async (zipCode) => {
         csvChartProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4DIMENSIE.csv"));
     }
 
-    for (var i = 1; i < csvChartProcessed.csvRows.length; i++) {
-        csvRow = csvChartProcessed.csvRows[i];
-        if (csvRow.startsWith(zipCode)) {
-            const lineArray = csvRow.split(',');
-            csvChartProcessed.mapColumnIndex.forEach((value, key) => {
-                mapChartResults.set(key, lineArray[value]);
-            })
-            return mapChartResults;
-        }
-    }
+    const lineArray = csvChartProcessed.csvZipCodeRowMap.get(zipCode).split(',');
+    csvChartProcessed.mapColumnIndex.forEach((value, key) => {
+        mapChartResults.set(key, lineArray[value]);
+    })
 
-
+    return mapChartResults;
 }
 
 const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
