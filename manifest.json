@@ -27,10 +27,11 @@
         "styles/dialog.css"
       ],
       "js": [
+        "lib/jquery-3.5.1.min.js",
+        "util/effects.js",
         "components/liveabilityChart.js",
         "components/helpModal.js",
         "components/liveabilityRegion.js",
-        "lib/jquery-3.5.1.min.js",
         "util/constants.js",
         "util/csvFunctions.js",
         "content.js"

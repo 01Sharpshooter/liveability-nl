@@ -148,3 +148,30 @@
     display: inline-block;
     margin-right: 0.2em;
 }
+
+.clickable-ripple {
+    overflow: hidden;
+}
+
+.clickable-ripple .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #ffffff;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    animation: ripple 0.8s;
+    opacity: 0;
+}
+
+@keyframes ripple {
+    from {
+        opacity: 0.5;
+        transform: scale(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(10);
+    }
+}

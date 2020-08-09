@@ -55,6 +55,8 @@ const getLiveabilityHeader = (liveabilityScore, developmentScore) => {
     const helpIcon = getHelpIcon();
     regionHeader.append(helpIcon);
 
+    addRippleOnClick(regionHeader);
+
     return regionHeader;
 }
 
@@ -98,13 +100,12 @@ const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
 const getLiveabilityRegion = (regionNumber, zipCode) => {
     const region = document.createElement("div");
     region.setAttribute("class", `liveability-region`);
+    let regionContent;
 
     fetchScores(zipCode).then((scores) => {
         const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
 
         $(regionHeader).click(function () {
-            let regionContent = region.getElementsByClassName("region-content")[0];
-
             if (!regionContent) {
                 regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
                 region.appendChild(regionContent);
