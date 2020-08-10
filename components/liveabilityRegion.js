@@ -18,7 +18,7 @@ const getHelpIcon = () => {
 
 const fetchScores = async (zipCode) => {
     if (!csvScoresProcessed) {
-        csvScoresProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4LBR.csv"));
+        csvScoresProcessed = await fetchCSV(getResourceURL("PC4LBR.csv"));
     }
 
     const lineArray = csvScoresProcessed.csvZipCodeRowMap.get(zipCode).split(',');
@@ -59,7 +59,7 @@ const getLiveabilityHeader = (liveabilityScore, developmentScore) => {
 const fetchChartData = async (zipCode) => {
     const mapChartResults = new Map();
     if (!csvChartProcessed) {
-        csvChartProcessed = await fetchCSV(chrome.runtime.getURL("resources/PC4DIMENSIE.csv"));
+        csvChartProcessed = await fetchCSV(getResourceURL("PC4DIMENSIE.csv"));
     }
 
     const lineArray = csvChartProcessed.csvZipCodeRowMap.get(zipCode).split(',');

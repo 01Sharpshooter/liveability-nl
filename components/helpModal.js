@@ -1,4 +1,4 @@
-const urlHelpHtml = chrome.runtime.getURL("resources/help.html");
+const urlHelpHtml = getResourceURL("help.html");
 var helpDialogDiv;
 
 const createHelpDialog = () => {
@@ -39,7 +39,7 @@ const createHelpDialog = () => {
         });
         underlyingCategories.innerHTML = classesList;
 
-        helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = chrome.runtime.getURL("resources/chart-picture.png");
+        helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = getResourceURL("chart-picture.png");
 
         $(document).keyup((e) => {
             if (e.which == 27) {
