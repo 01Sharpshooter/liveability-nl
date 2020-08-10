@@ -41,6 +41,12 @@ const createHelpDialog = () => {
 
         helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = getResourceURL("chart-picture.png");
 
+        $("body").keydown((e) => {
+            if (e.which == 27 && $(helpDialogDiv).is(':visible')) {
+                e.stopImmediatePropagation();
+            }
+        });
+
         $(document).keyup((e) => {
             if (e.which == 27) {
                 helpDialogDiv.style.display = "none";
