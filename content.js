@@ -1,4 +1,3 @@
-
 var timer;
 var e = $(Settings.OBSERVER_SELECTOR)[0];
 var observer = new MutationObserver((event) => {
