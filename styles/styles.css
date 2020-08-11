@@ -180,6 +180,6 @@
     }
     to {
         opacity: 0;
-        transform: scale(10);
+        transform: scale(5);
     }
 }
