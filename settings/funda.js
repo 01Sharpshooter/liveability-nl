@@ -1,7 +1,7 @@
 const Settings = Object.freeze({
     RESULT_SELECTOR: ".search-result",
     ZIPCODE_SELECTOR: ".search-result__header-subtitle.fd-m-none",
-    OBSERVER_SELECTOR: ".container.search-main",
+    OBSERVER_SELECTOR: ".container.search-main, input[name=previousState]",
     OBSERVER_OPTIONS: {
         attributes: true,
         attributeFilter: ['class'],
