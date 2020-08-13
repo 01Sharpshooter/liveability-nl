@@ -1,0 +1,28 @@
+#popup-content {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup-content .settings-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup-title {
+    align-self: center;
+    margin-top: 0px;
+}
+
+body {
+    font-size: 15px;
+    font-family: "Noto Sans", Arial, sans-serif;
+}
+
+label {
+    display: inline-block;
+    width: 50px;
+}

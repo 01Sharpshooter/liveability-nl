@@ -3,6 +3,10 @@
   "name": "Liveability NL",
   "version": "0.1.0",
   "description": "Liveability Scores for renting sites like Funda/Pararius.",
+  "browser_action": {
+    "default_title": "Liveability NL",
+    "default_popup": "popup/popup.html"
+  },
   "content_scripts": [
     {
       "js": [
