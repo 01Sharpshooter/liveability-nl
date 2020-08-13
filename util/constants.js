@@ -52,3 +52,11 @@ const ChartCategories = Object.freeze({
   SAFETY: { label: "Safety", color: "#F1C40F" },
   ENVIRONMENT: { label: "Environment", color: "#c45850" }
 });
+
+const AppMessages = Object.freeze({
+  READ_ENABLED: "Read Enabled"
+});
+
+const AppSettings = Object.freeze({
+  LIVEABILITY_REGIONS_ENABLED: "Liveability Regions Enabled"
+});

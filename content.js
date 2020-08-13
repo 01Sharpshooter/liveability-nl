@@ -3,7 +3,7 @@ var e = $(Settings.OBSERVER_SELECTOR)[0];
 var observer = new MutationObserver((event) => {
   if (timer) clearTimeout(timer);
   timer = setTimeout(() => {
-    addLiveabilityRegions();
+    toggleLiveabilityRegions();
   }, 500);
 })
 
@@ -20,4 +20,22 @@ const addLiveabilityRegions = () => {
   });
 }
 
-addLiveabilityRegions();
+const toggleLiveabilityRegions = () => {
+  document.querySelectorAll(".liveability-region").forEach((node) => node.remove());
+
+  chrome.storage.local.get(AppSettings.LIVEABILITY_REGIONS_ENABLED, (result) => {
+    if (result[AppSettings.LIVEABILITY_REGIONS_ENABLED]) {
+      addLiveabilityRegions();
+    }
+  });
+}
+
+const messageHandler = (message) => {
+  if (message = AppMessages.READ_ENABLED) {
+    toggleLiveabilityRegions();
+  }
+}
+
+chrome.runtime.onMessage.addListener(messageHandler);
+
+toggleLiveabilityRegions();

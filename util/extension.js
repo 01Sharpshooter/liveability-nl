@@ -6,3 +6,9 @@ const getResourceURL = (shortName) => {
         return browser.runtime.getURL(url);
     }
 }
+
+const sendMessage = (message) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tab) => {
+        chrome.tabs.sendMessage(tab[0].id, message);
+    });
+}
