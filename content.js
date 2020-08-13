@@ -1,13 +1,15 @@
 var timer;
 var e = $(Settings.OBSERVER_SELECTOR)[0];
-var observer = new MutationObserver((event) => {
-  if (timer) clearTimeout(timer);
-  timer = setTimeout(() => {
-    toggleLiveabilityRegions();
-  }, 500);
-})
+if (e instanceof Node) {
+  var observer = new MutationObserver((event) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      toggleLiveabilityRegions();
+    }, 500);
+  })
 
-observer.observe(e, Settings.OBSERVER_OPTIONS);
+  observer.observe(e, Settings.OBSERVER_OPTIONS);
+}
 
 const addLiveabilityRegions = () => {
   let regionNumber = 1;
