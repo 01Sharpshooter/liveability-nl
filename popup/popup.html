@@ -6,18 +6,26 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="popup.css" />
     <link rel="stylesheet" href="../styles/toggle.css" />
+    <link rel="stylesheet" href="../styles/slider.css" />
 </head>
 
 <body>
     <div id="popup-content">
         <h3 id="popup-title">Liveabilty</h3>
-            <div class="settings-line">
-                <span>Enabled</span>
-                <label id="enable-disable-switch" class="switch">
-                    <input id="checkbox-enable-disable" type="checkbox">
-                    <span class="slider"></span>
-                </label>
+        <div class="settings-line">
+            <span>Enabled</span>
+            <label id="enable-disable-switch" class="switch">
+                <input id="checkbox-enable-disable" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="settings-line">
+            <span class="slider-label">Liveability Filter</span>
+            <div id="liveability-range-slider" class="range-slider">
+                <input class="range-slider-range" type="range" value="1" min="1">
+                <span class="range-slider-value"></span>
             </div>
+        </div>
     </div>
     <script src="../util/extension.js"></script>
     <script src="../util/constants.js"></script>

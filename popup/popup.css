@@ -13,6 +13,10 @@
     margin-bottom: 0.2em;
 }
 
+#popup-content .settings-line .slider-label {
+    align-self: flex-start;
+}
+
 #popup-title {
     align-self: center;
     margin-top: 0px;
