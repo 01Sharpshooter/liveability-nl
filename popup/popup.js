@@ -23,13 +23,13 @@ const rangeSlider = () => {
 
     range.max = max;
 
-    span.innerHTML = LiveabilityClasses[range.value].meaning;
+    span.innerHTML = LiveabilityClasses[range.value]?.meaning;
 
     range.addEventListener("input", (event) => {
         const element = event.currentTarget;
         const valueInPercentage = (element.value / element.max * 100) - 1;
-        const backgroundColor = LiveabilityClasses[element.value].backgroundColor;
-        span.innerHTML = LiveabilityClasses[element.value].meaning;
+        const backgroundColor = LiveabilityClasses[element.value]?.backgroundColor;
+        span.innerHTML = LiveabilityClasses[element.value]?.meaning;
 
         range.style.background = `linear-gradient(to right, ${backgroundColor} 0% ${valueInPercentage}%, #ccc ${valueInPercentage}% 100%)`;
     });

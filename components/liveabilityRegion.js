@@ -32,7 +32,7 @@ const fetchScores = async (zipCode) => {
 const getScoreDiv = (liveabilityScore, developmentScore) => {
     const scoreDiv = document.createElement("div");
     const liveabilitySpan = document.createElement("span");
-    liveabilitySpan.innerHTML = `Liveability: ${LiveabilityClasses[liveabilityScore].meaning || 'N/A'}`;
+    liveabilitySpan.innerHTML = `Liveability: ${LiveabilityClasses[liveabilityScore]?.meaning || 'N/A'}`;
     const developmentSpan = document.createElement("span");
     developmentSpan.innerHTML = `Improvement: ${DevelopmentScoreMeaning[developmentScore] || 'N/A'}`;
     scoreDiv.appendChild(liveabilitySpan);
@@ -44,8 +44,8 @@ const getScoreDiv = (liveabilityScore, developmentScore) => {
 const getLiveabilityHeader = (liveabilityScore, developmentScore) => {
     const regionHeader = document.createElement("div");
     regionHeader.setAttribute("class", `region-header`);
-    regionHeader.style.backgroundColor = LiveabilityClasses[liveabilityScore].backgroundColor;
-    regionHeader.style.color = LiveabilityClasses[liveabilityScore].fontColor;
+    regionHeader.style.backgroundColor = LiveabilityClasses[liveabilityScore]?.backgroundColor;
+    regionHeader.style.color = LiveabilityClasses[liveabilityScore]?.fontColor;
 
     const scoreDiv = getScoreDiv(liveabilityScore, developmentScore);
     regionHeader.appendChild(scoreDiv);
