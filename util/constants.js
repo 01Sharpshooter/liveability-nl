@@ -23,16 +23,16 @@ const CSVColumns = Object.freeze({
   ENVIRONMENT18: "RLBFYS18"
 });
 
-const LiveabilityScoreMeaning = Object.freeze({
-  1: "Very Insufficient",
-  2: "Insufficient",
-  3: "Slightly Insufficient",
-  4: "Weak",
-  5: "Mostly Sufficient",
-  6: "Sufficient",
-  7: "Good",
-  8: "Very Good",
-  9: "Exceptional"
+const LiveabilityClasses = Object.freeze({
+  1: { meaning: "Very Insufficient", backgroundColor: "#730000", fontColor: "ghostwhite" },
+  2: { meaning: "Insufficient", backgroundColor: "#e50000", fontColor: "ghostwhite" },
+  3: { meaning: "Slightly Insufficient", backgroundColor: "#e1702e", fontColor: "ghostwhite" },
+  4: { meaning: "Weak", backgroundColor: "#ffffbe", fontColor: "inherit" },
+  5: { meaning: "Mostly Sufficient", backgroundColor: "#d3ffbe", fontColor: "inherit" },
+  6: { meaning: "Sufficient", backgroundColor: "#93e667", fontColor: "inherit" },
+  7: { meaning: "Good", backgroundColor: "#55be00", fontColor: "#002a15" },
+  8: { meaning: "Very Good", backgroundColor: "#267300", fontColor: "ghostwhite" },
+  9: { meaning: "Exceptional", backgroundColor: "#2d4900", fontColor: "ghostwhite" }
 });
 
 const DevelopmentScoreMeaning = Object.freeze({
