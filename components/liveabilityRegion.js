@@ -18,7 +18,7 @@ const getHelpIcon = () => {
 
 const fetchScores = async (zipCode) => {
     if (!csvScoresProcessed) {
-        csvScoresProcessed = await fetchCSV(getResourceURL("PC4LBR.csv"));
+        csvScoresProcessed = await fetchCSV("PC4LBR.csv");
     }
 
     const lineArray = csvScoresProcessed.csvZipCodeRowMap.get(zipCode).split(',');
@@ -61,7 +61,7 @@ const getLiveabilityHeader = (liveabilityScore, developmentScore) => {
 const fetchChartData = async (zipCode) => {
     const mapChartResults = new Map();
     if (!csvChartProcessed) {
-        csvChartProcessed = await fetchCSV(getResourceURL("PC4DIMENSIE.csv"));
+        csvChartProcessed = await fetchCSV("PC4DIMENSIE.csv");
     }
 
     const lineArray = csvChartProcessed.csvZipCodeRowMap.get(zipCode).split(',');
@@ -97,13 +97,13 @@ const getLiveabilityRegion = async (regionNumber, zipCode) => {
     const scores = await fetchScores(zipCode);
     const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
 
-    $(regionHeader).click(function () {
+    regionHeader.addEventListener("click", () => {
         if (!regionContent) {
             regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
             region.appendChild(regionContent);
         }
 
-        $(regionContent).fadeToggle(200);
+        regionContent.classList.toggle("visible");
     });
 
     region.setAttribute("data-score", scores.liveabilityScore);

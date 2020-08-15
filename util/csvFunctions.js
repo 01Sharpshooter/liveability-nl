@@ -21,8 +21,8 @@ const csvToZipCodeRowMap = (csv) => {
   return map;
 }
 
-const fetchCSV = async (url) => {
-  const csv = await $.get(url);
+const fetchCSV = async (csvName) => {
+  const csv = await getResource(csvName);
 
   const csvZipCodeRowMap = csvToZipCodeRowMap(csv);
   const mapColumnIndex = csvRowArrayToColumnIndexMap(CSVColumns, csv);

@@ -1,5 +1,5 @@
 var timer;
-var e = $(Settings.OBSERVER_SELECTOR)[0];
+var e = document.querySelector(Settings.OBSERVER_SELECTOR);
 if (e instanceof Node) {
   var observer = new MutationObserver((event) => {
     if (timer) clearTimeout(timer);
@@ -23,17 +23,17 @@ const addLiveabilityRegions = () => {
   let regionNumber = 1;
   chrome.storage.local.get(AppSettings.MIN_LIVEABILITY_SCORE, (result) => {
     const minScore = result[AppSettings.MIN_LIVEABILITY_SCORE];
-    $.each($(Settings.RESULT_SELECTOR), function () {
-      const zipCode = $(this).find(Settings.ZIPCODE_SELECTOR)[0].lastChild.nodeValue.trim().substring(0, 4);
+    document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((resultCard) => {
+      const zipCode = resultCard.querySelector(Settings.ZIPCODE_SELECTOR).lastChild.nodeValue.trim().substring(0, 4);
 
       getLiveabilityRegion(regionNumber, zipCode).then((region) => {
-        $(this).append(region);
+        resultCard.appendChild(region);
 
         filterCardByMinScore(region, minScore);
       });
-    });
 
-    regionNumber++;
+      regionNumber++;
+    });
   });
 }
 

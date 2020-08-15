@@ -1,4 +1,3 @@
-const urlHelpHtml = getResourceURL("help.html");
 var helpDialogDiv;
 
 const createHelpDialog = () => {
@@ -10,11 +9,13 @@ const createHelpDialog = () => {
     helpDialogDiv.className = "liveability-help-modal-container";
     helpDialogDiv.id = "liveability-help-dialog";
 
-    $.get(urlHelpHtml, function (html) {
+    getResource("help.html").then((html) => {
         helpDialogDiv.innerHTML = html;
 
+        const modalWindow = helpDialogDiv.querySelector(".liveability-help-modal");
+
         const closeSpan = helpDialogDiv.getElementsByClassName("liveability-help-modal-close")[0];
-        closeSpan.onclick = function () {
+        closeSpan.onclick = () => {
             helpDialogDiv.style.display = "none";
         }
 
@@ -42,20 +43,20 @@ const createHelpDialog = () => {
 
         helpDialogDiv.getElementsByClassName("img-help-chart")[0].src = getResourceURL("chart-picture.png");
 
-        $("body").keydown((e) => {
-            if (e.which == 27 && $(helpDialogDiv).is(':visible')) {
+        document.body.addEventListener("keydown", (e) => {
+            if (e.keyCode == 27 && helpDialogDiv.style.display != "none") {
                 e.stopImmediatePropagation();
             }
         });
 
-        $(document).keyup((e) => {
+        document.addEventListener("keyup", (e) => {
             if (e.which == 27) {
                 helpDialogDiv.style.display = "none";
             }
         });
 
-        $(document).mouseup((e) => {
-            if ($(helpDialogDiv).has(e.target).length === 0) {
+        document.addEventListener("mouseup", (e) => {
+            if (!modalWindow.contains(e.target)) {
                 helpDialogDiv.style.display = "none";
             }
         });

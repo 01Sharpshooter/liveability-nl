@@ -36,6 +36,10 @@
     overflow: hidden;
 }
 
+.liveability-region .region-content.visible {
+    display: block;
+}
+
 .liveability-region .region-header-text {
     display: flex;
     flex-direction: column;

@@ -1,17 +1,16 @@
 const addRippleOnClick = (node) => {
-    const elem = $(node);
-    elem.addClass("clickable-ripple");
-    elem.on("click", (evt) => {
-        const rippleEffect = evt.currentTarget.getElementsByClassName("ripple-effect")[0];
-        if (rippleEffect) evt.currentTarget.removeChild(rippleEffect);
+    node.classList.add("clickable-ripple");
 
-        const eventTarget = $(evt.currentTarget);
-        const x = evt.pageX - eventTarget.offset().left;
-        const y = evt.pageY - eventTarget.offset().top;
+    node.addEventListener("click", (evt) => {
+        const rippleEffect = document.createElement("span");
+        rippleEffect.className = "ripple-effect";
+        
+        var rect = evt.currentTarget.getBoundingClientRect();
+        rippleEffect.style.left = `${evt.clientX - rect.left}px`;
+        rippleEffect.style.top = `${evt.clientY - rect.top}px`;
 
-        $('<span class="ripple-effect"/>').appendTo(eventTarget).css({
-            left: x,
-            top: y
-        });
+        rippleEffect.addEventListener('animationend', () => { node.removeChild(rippleEffect) }, false);
+
+        node.appendChild(rippleEffect);
     });
 }
