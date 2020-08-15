@@ -54,9 +54,11 @@ const ChartCategories = Object.freeze({
 });
 
 const AppMessages = Object.freeze({
-  READ_ENABLED: "Read Enabled"
+  READ_ENABLED: "Read Enabled",
+  READ_MIN_LIV_SCORE: "Read Minimum Liveability Score"
 });
 
 const AppSettings = Object.freeze({
-  LIVEABILITY_REGIONS_ENABLED: "Liveability Regions Enabled"
+  LIVEABILITY_REGIONS_ENABLED: "Liveability Regions Enabled",
+  MIN_LIVEABILITY_SCORE: "Minimum Liveability Score"
 });

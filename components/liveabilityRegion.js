@@ -89,25 +89,25 @@ const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
     return regionContent;
 }
 
-const getLiveabilityRegion = (regionNumber, zipCode) => {
+const getLiveabilityRegion = async (regionNumber, zipCode) => {
     const region = document.createElement("div");
     region.setAttribute("class", `liveability-region`);
     let regionContent;
 
-    fetchScores(zipCode).then((scores) => {
-        const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
+    const scores = await fetchScores(zipCode);
+    const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
 
-        $(regionHeader).click(function () {
-            if (!regionContent) {
-                regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
-                region.appendChild(regionContent);
-            }
+    $(regionHeader).click(function () {
+        if (!regionContent) {
+            regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
+            region.appendChild(regionContent);
+        }
 
-            $(regionContent).fadeToggle(200);
-        });
-
-        region.appendChild(regionHeader);
+        $(regionContent).fadeToggle(200);
     });
+
+    region.setAttribute("data-score", scores.liveabilityScore);
+    region.appendChild(regionHeader);
 
     return region;
 }
