@@ -11,6 +11,13 @@
     "tabs",
     "storage"
   ],
+  "background": {
+    "scripts": [
+      "util/constants.js",
+      "background.js"
+    ],
+    "persistent": false
+  },
   "content_scripts": [
     {
       "js": [
