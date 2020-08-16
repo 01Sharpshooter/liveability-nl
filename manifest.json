@@ -61,6 +61,7 @@
     "resources/PC4LBR.csv",
     "resources/PC4DIMENSIE.csv",
     "resources/chart-picture.png",
-    "resources/help.html"
+    "resources/help.html",
+    "resources/chartScripts.js"
   ]
 }

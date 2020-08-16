@@ -2,22 +2,19 @@ const chartScript = document.createElement('script');
 chartScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js';
 document.body.appendChild(chartScript);
 
+const chartLabelsScript = document.createElement("script");
+chartLabelsScript.src = getResourceURL("chartScripts.js");
+document.body.appendChild(chartLabelsScript);
+
 const createChart = (chartId, chartClass, chartMap) => {
-    const chartDiv = document.createElement("div");
-    const canvas = document.createElement("canvas");
-    const script = document.createElement("script");
+  const chartDiv = document.createElement("div");
+  const canvas = document.createElement("canvas");
+  const script = document.createElement("script");
 
-    canvas.id = chartId;
-    canvas.setAttribute("class", chartClass);
+  canvas.id = chartId;
+  canvas.setAttribute("class", chartClass);
 
-    const chartText = document.createTextNode(`
-    var ChartScoreMeaning = Object.freeze({
-      "0": "National Average",
-      "0.1": "Above Average",
-      "0.2": "Highly Above Average",
-      "-0.1": "Below Average",
-      "-0.2": "Way Below Average"
-    });
+  const chartText = document.createTextNode(`
       new Chart(document.getElementById("${chartId}"), {
           type: 'line',
           data: {
@@ -72,23 +69,7 @@ const createChart = (chartId, chartClass, chartMap) => {
                 callbacks: {
                     label: function(tooltipItem, data) {
                         const value = parseFloat(tooltipItem.value);
-                        if(value >= 0.2){
-                            return ChartScoreMeaning["0.2"];
-                        }else if(value >= 0.1){
-                            return ChartScoreMeaning["0.1"];
-                        }else if(value > 0){
-                            return "Slightly Above Average";
-                        }else if(value === 0){
-                            return ChartScoreMeaning["0"];
-                        }else if(value > -0.1){
-                            return "Slightly Below Average";
-                        }else if(value > -0.2){
-                            return ChartScoreMeaning["-0.1"];
-                        }else if(value <= -0.2){
-                            return ChartScoreMeaning["-0.2"];
-                        }else{
-                            return "";
-                        }
+                        return getTooltip(value);
                     }
                 }
             },
@@ -100,16 +81,16 @@ const createChart = (chartId, chartClass, chartMap) => {
                   ticks: {
                       beginAtZero: true,
                       callback: function(value, index, values) {
-                        return ChartScoreMeaning[value.toString()]
+                        return yLabels[value.toString()];
                       }
                   }
               }]
             }
           }
         });`);
-    script.appendChild(chartText);
-    chartDiv.appendChild(canvas);
-    chartDiv.appendChild(script);
+  script.appendChild(chartText);
+  chartDiv.appendChild(canvas);
+  chartDiv.appendChild(script);
 
-    return chartDiv;
+  return chartDiv;
 }
