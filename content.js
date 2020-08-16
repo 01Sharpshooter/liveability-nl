@@ -1,3 +1,7 @@
+let minLiveabilityScore;
+let minDevelopmentScore;
+let regionsEnabled;
+
 var timer;
 var e = document.querySelector(Settings.OBSERVER_SELECTOR);
 if (e instanceof Node) {
@@ -11,8 +15,10 @@ if (e instanceof Node) {
   observer.observe(e, Settings.OBSERVER_OPTIONS);
 }
 
-const filterCardByMinScore = (liveabilityRegion, minScore) => {
-  if (parseInt(liveabilityRegion.getAttribute("data-score")) < minScore) {
+const applyFiltersOnCard = (liveabilityRegion) => {
+  if (regionsEnabled &&
+    (parseInt(liveabilityRegion.getAttribute("data-score")) < minLiveabilityScore ||
+      parseInt(liveabilityRegion.getAttribute("data-development")) < minDevelopmentScore)) {
     liveabilityRegion.parentNode.style.display = "none";
   } else {
     liveabilityRegion.parentNode.style.display = "inherit";
@@ -21,53 +27,74 @@ const filterCardByMinScore = (liveabilityRegion, minScore) => {
 
 const addLiveabilityRegions = () => {
   let regionNumber = 1;
-  chrome.storage.local.get(AppSettings.MIN_LIVEABILITY_SCORE, (result) => {
-    const minScore = result[AppSettings.MIN_LIVEABILITY_SCORE];
-    document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((resultCard) => {
-      const zipCode = resultCard.querySelector(Settings.ZIPCODE_SELECTOR).lastChild.nodeValue.trim().substring(0, 4);
+  document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((resultCard) => {
+    const zipCode = resultCard.querySelector(Settings.ZIPCODE_SELECTOR).lastChild.nodeValue.trim().substring(0, 4);
 
-      getLiveabilityRegion(regionNumber, zipCode).then((region) => {
-        resultCard.appendChild(region);
+    getLiveabilityRegion(regionNumber, zipCode).then((region) => {
+      resultCard.appendChild(region);
 
-        filterCardByMinScore(region, minScore);
-      });
-
-      regionNumber++;
+      applyFiltersOnCard(region);
     });
-  });
-}
 
-const filterAllCardsByMinScore = () => {
-  chrome.storage.local.get(AppSettings.MIN_LIVEABILITY_SCORE, (result) => {
-    const minScore = result[AppSettings.MIN_LIVEABILITY_SCORE];
-
-    document.querySelectorAll(".liveability-region").forEach((node) => {
-      filterCardByMinScore(node, minScore);
-    });
+    regionNumber++;
   });
 }
 
 const toggleLiveabilityRegions = () => {
   document.querySelectorAll(".liveability-region").forEach((node) => node.remove());
 
-  chrome.storage.local.get(AppSettings.LIVEABILITY_REGIONS_ENABLED, (result) => {
-    if (result[AppSettings.LIVEABILITY_REGIONS_ENABLED]) {
-      addLiveabilityRegions();
-    } else {
-      document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((node) => {
-        node.style.display = "inherit";
-      });
-    }
+  if (regionsEnabled) {
+    addLiveabilityRegions();
+  } else {
+    document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((node) => {
+      node.style.display = "inherit";
+    });
+  }
+}
+
+const applyFiltersToAll = () => {
+  document.querySelectorAll(".liveability-region").forEach((node) => {
+    applyFiltersOnCard(node);
+  });
+}
+
+const readSettings = async () => {
+  regionsEnabled = await readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED);
+  minLiveabilityScore = await readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE);
+  minDevelopmentScore = await readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE);
+}
+
+const readLiveabilityScore = () => {
+  readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE).then((score) => {
+    minLiveabilityScore = score;
+    applyFiltersToAll();
+  });
+}
+
+const readDevelopmentScore = () => {
+  readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE).then((score) => {
+    minDevelopmentScore = score;
+    applyFiltersToAll();
+  });
+}
+
+const readEnabled = () => {
+  readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED).then((enabled) => {
+    regionsEnabled = enabled;
+    toggleLiveabilityRegions();
   });
 }
 
 const messageHandler = (message) => {
   switch (message) {
     case AppMessages.READ_ENABLED:
-      toggleLiveabilityRegions();
+      readEnabled();
       break;
     case AppMessages.READ_MIN_LIV_SCORE:
-      filterAllCardsByMinScore();
+      readLiveabilityScore();
+      break;
+    case AppMessages.READ_MIN_DEV_SCORE:
+      readDevelopmentScore();
       break;
     default:
       break;
@@ -76,4 +103,4 @@ const messageHandler = (message) => {
 
 chrome.runtime.onMessage.addListener(messageHandler);
 
-toggleLiveabilityRegions();
+readSettings().then(toggleLiveabilityRegions);
