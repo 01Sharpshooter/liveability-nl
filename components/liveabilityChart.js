@@ -81,7 +81,7 @@ const createChart = (chartId, chartClass, chartMap) => {
                   ticks: {
                       beginAtZero: true,
                       callback: function(value, index, values) {
-                        return yLabels[value.toString()];
+                        return yLabels[value];
                       }
                   }
               }]

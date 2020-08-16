@@ -19,9 +19,9 @@ const getTooltip = (value) => {
 }
 
 const yLabels = Object.freeze({
-    "0.2": "Highly Above Average",
-    "0.1": "Above Average",
-    "0": "National Average",
-    "-0.1": "Below Average",
-    "-0.2": "Way Below Average"
+    0.2: "Highly Above Average",
+    0.1: "Above Average",
+    0: "National Average",
+    [-0.1]: "Below Average",
+    [-0.2]: "Way Below Average"
 });
