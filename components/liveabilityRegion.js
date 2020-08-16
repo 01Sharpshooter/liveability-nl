@@ -107,6 +107,7 @@ const getLiveabilityRegion = async (regionNumber, zipCode) => {
     });
 
     region.setAttribute("data-score", scores.liveabilityScore);
+    region.setAttribute("data-development", scores.developmentScore);
     region.appendChild(regionHeader);
 
     return region;
