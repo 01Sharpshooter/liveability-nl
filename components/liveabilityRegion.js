@@ -34,7 +34,7 @@ const getScoreDiv = (liveabilityScore, developmentScore) => {
     const liveabilitySpan = document.createElement("span");
     liveabilitySpan.innerHTML = `Liveability: ${LiveabilityClasses[liveabilityScore]?.meaning || 'N/A'}`;
     const developmentSpan = document.createElement("span");
-    developmentSpan.innerHTML = `Improvement: ${DevelopmentScoreMeaning[developmentScore] || 'N/A'}`;
+    developmentSpan.innerHTML = `Development: ${DevelopmentScoreMeaning[developmentScore] || 'N/A'}`;
     scoreDiv.appendChild(liveabilitySpan);
     scoreDiv.appendChild(developmentSpan);
     scoreDiv.setAttribute("class", `region-header-text`);

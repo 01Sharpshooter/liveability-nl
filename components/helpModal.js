@@ -27,12 +27,12 @@ const createHelpDialog = () => {
         });
         liveabilityClasses.innerHTML = classesList;
 
-        const improvementClasses = helpDialogDiv.getElementsByClassName("improvement-classes")[0];
+        const developmentClasses = helpDialogDiv.getElementsByClassName("development-classes")[0];
         classesList = "";
-        Object.values(DevelopmentScoreMeaning).forEach((improvementClass) => {
-            classesList += `<li>${improvementClass}</li>`;
+        Object.values(DevelopmentScoreMeaning).forEach((developmentClass) => {
+            classesList += `<li>${developmentClass}</li>`;
         });
-        improvementClasses.innerHTML = classesList;
+        developmentClasses.innerHTML = classesList;
 
         const underlyingCategories = helpDialogDiv.getElementsByClassName("underlying-categories")[0];
         classesList = "";
