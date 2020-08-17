@@ -87,14 +87,17 @@ const readEnabled = () => {
 
 const messageHandler = (message) => {
   switch (message) {
-    case AppMessages.READ_ENABLED:
+    case AppSettings.LIVEABILITY_REGIONS_ENABLED:
       readEnabled();
       break;
-    case AppMessages.READ_MIN_LIV_SCORE:
+    case AppSettings.MIN_LIVEABILITY_SCORE:
       readLiveabilityScore();
       break;
-    case AppMessages.READ_MIN_DEV_SCORE:
+    case AppSettings.MIN_DEVELOPMENT_SCORE:
       readDevelopmentScore();
+      break;
+    case AppSettings.MIN_SAFETY_SCORE:
+      readSafetyScore();
       break;
     default:
       break;

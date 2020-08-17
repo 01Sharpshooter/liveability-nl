@@ -53,14 +53,9 @@ const ChartCategories = Object.freeze({
   ENVIRONMENT: { label: "Environment", color: "#c45850" }
 });
 
-const AppMessages = Object.freeze({
-  READ_ENABLED: "Read Enabled",
-  READ_MIN_LIV_SCORE: "Read Minimum Liveability Score",
-  READ_MIN_DEV_SCORE: "Read Minimum Development Score"
-});
-
 const AppSettings = Object.freeze({
-  LIVEABILITY_REGIONS_ENABLED: "Liveability Regions Enabled",
-  MIN_LIVEABILITY_SCORE: "Minimum Liveability Score",
-  MIN_DEVELOPMENT_SCORE: "Minimum Development Score"
+  LIVEABILITY_REGIONS_ENABLED: "LIVEABILITY_REGIONS_ENABLED",
+  MIN_LIVEABILITY_SCORE: "MIN_LIVEABILITY_SCORE",
+  MIN_DEVELOPMENT_SCORE: "MIN_DEVELOPMENT_SCORE",
+  MIN_SAFETY_SCORE: "MIN_SAFETY_SCORE"
 });
