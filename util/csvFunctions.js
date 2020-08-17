@@ -14,7 +14,7 @@ const csvToZipCodeRowMap = (csv) => {
   const map = new Map();
   const csvRows = csv.split('\n');
 
-  for (const row of Object.values(csvRows)) {
+  for (const row of csvRows) {
     map.set(row.substring(0, 4), row);
   }
 
