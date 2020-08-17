@@ -112,3 +112,12 @@ const getLiveabilityRegion = async (regionNumber, zipCode) => {
 
     return region;
 }
+
+const prefetchCSV = async () => {
+    if (!csvScoresProcessed) {
+        csvScoresProcessed = await fetchCSV("PC4LBR.csv");
+    }
+    if (!csvChartProcessed) {
+        csvChartProcessed = await fetchCSV("PC4DIMENSIE.csv");
+    }
+}

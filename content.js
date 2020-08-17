@@ -106,4 +106,4 @@ const messageHandler = (message) => {
 
 chrome.runtime.onMessage.addListener(messageHandler);
 
-readSettings().then(toggleLiveabilityRegions);
+readSettings().then(prefetchCSV).then(toggleLiveabilityRegions);
