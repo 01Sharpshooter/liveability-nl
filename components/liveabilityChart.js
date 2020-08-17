@@ -69,7 +69,7 @@ const createChart = (chartId, chartClass, chartMap) => {
                 callbacks: {
                     label: function(tooltipItem, data) {
                         const value = parseFloat(tooltipItem.value);
-                        return getTooltip(value);
+                        return getChartInterval(value)[1].name;
                     }
                 }
             },
@@ -81,7 +81,7 @@ const createChart = (chartId, chartClass, chartMap) => {
                   ticks: {
                       beginAtZero: true,
                       callback: function(value, index, values) {
-                        return yLabels[value];
+                        return chartYLabels[value];
                       }
                   }
               }]
