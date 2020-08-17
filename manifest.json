@@ -44,6 +44,7 @@
       "js": [
         "util/extension.js",
         "util/effects.js",
+        "resources/chartScripts.js",
         "components/liveabilityChart.js",
         "components/helpModal.js",
         "components/liveabilityRegion.js",

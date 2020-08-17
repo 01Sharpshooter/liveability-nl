@@ -1,5 +1,6 @@
 let minLiveabilityScore;
 let minDevelopmentScore;
+let minSafetyScore;
 let regionsEnabled;
 
 var timer;
@@ -15,10 +16,11 @@ if (e instanceof Node) {
   observer.observe(e, Settings.OBSERVER_OPTIONS);
 }
 
-const applyFiltersOnCard = (liveabilityRegion) => {
+const applyFiltersToCard = (liveabilityRegion) => {
   if (regionsEnabled &&
     (parseInt(liveabilityRegion.getAttribute("data-score")) < minLiveabilityScore ||
-      parseInt(liveabilityRegion.getAttribute("data-development")) < minDevelopmentScore)) {
+      parseInt(liveabilityRegion.getAttribute("data-development")) < minDevelopmentScore ||
+      parseInt(liveabilityRegion.getAttribute("data-safety")) < minSafetyScore)) {
     liveabilityRegion.parentNode.style.display = "none";
   } else {
     liveabilityRegion.parentNode.style.display = "inherit";
@@ -33,7 +35,7 @@ const addLiveabilityRegions = () => {
     getLiveabilityRegion(regionNumber, zipCode).then((region) => {
       resultCard.appendChild(region);
 
-      applyFiltersOnCard(region);
+      applyFiltersToCard(region);
     });
 
     regionNumber++;
@@ -54,7 +56,7 @@ const toggleLiveabilityRegions = () => {
 
 const applyFiltersToAll = () => {
   document.querySelectorAll(".liveability-region").forEach((node) => {
-    applyFiltersOnCard(node);
+    applyFiltersToCard(node);
   });
 }
 
@@ -62,6 +64,7 @@ const readSettings = async () => {
   regionsEnabled = await readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED);
   minLiveabilityScore = await readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE);
   minDevelopmentScore = await readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE);
+  minSafetyScore = await readLocalSetting(AppSettings.MIN_SAFETY_SCORE);
 }
 
 const readLiveabilityScore = () => {
@@ -74,6 +77,13 @@ const readLiveabilityScore = () => {
 const readDevelopmentScore = () => {
   readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE).then((score) => {
     minDevelopmentScore = score;
+    applyFiltersToAll();
+  });
+}
+
+const readSafetyScore = () => {
+  readLocalSetting(AppSettings.MIN_SAFETY_SCORE).then((score) => {
+    minSafetyScore = score;
     applyFiltersToAll();
   });
 }

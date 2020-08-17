@@ -72,19 +72,9 @@ const fetchChartData = async (zipCode) => {
     return mapChartResults;
 }
 
-const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
+const getRegionContent = () => {
     const regionContent = document.createElement("div");
     regionContent.setAttribute("class", `region-content`);
-
-    fetchChartData(zipCode).then((mapChartResults) => {
-
-        const chartId = `liveability-chart-${regionNumber}`;
-        const chartClass = `chart-${liveabilityScore}`;
-
-        chart = createChart(chartId, chartClass, mapChartResults);
-        regionContent.appendChild(chart);
-
-    })
 
     return regionContent;
 }
@@ -92,16 +82,26 @@ const getRegionContent = (liveabilityScore, regionNumber, zipCode) => {
 const getLiveabilityRegion = async (regionNumber, zipCode) => {
     const region = document.createElement("div");
     region.setAttribute("class", `liveability-region`);
-    let regionContent;
 
     const scores = await fetchScores(zipCode);
     const regionHeader = getLiveabilityHeader(scores.liveabilityScore, scores.developmentScore);
+    const regionContent = getRegionContent();
 
+    fetchChartData(zipCode).then((mapChartResults) => {
+        region.setAttribute("data-safety", getChartInterval(mapChartResults.get(CSVColumns.SAFETY18))[0]);
+    });
+
+    let chart;
     regionHeader.addEventListener("click", () => {
-        if (!regionContent) {
-            regionContent = getRegionContent(scores.liveabilityScore, regionNumber, zipCode);
-            region.appendChild(regionContent);
-        }
+        fetchChartData(zipCode).then((mapChartResults) => {
+            const chartId = `liveability-chart-${regionNumber}`;
+            const chartClass = `chart-${scores.liveabilityScore}`;
+
+            if (!chart) {
+                chart = createChart(chartId, chartClass, mapChartResults);
+                regionContent.appendChild(chart);
+            }
+        });
 
         regionContent.classList.toggle("visible");
     });
@@ -109,6 +109,8 @@ const getLiveabilityRegion = async (regionNumber, zipCode) => {
     region.setAttribute("data-score", scores.liveabilityScore);
     region.setAttribute("data-development", scores.developmentScore);
     region.appendChild(regionHeader);
+    region.appendChild(regionContent);
+
 
     return region;
 }
