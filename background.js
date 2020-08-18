@@ -7,5 +7,6 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.storage.local.set({ [AppSettings.MIN_RESIDENTS_SCORE]: 1 });
         chrome.storage.local.set({ [AppSettings.MIN_SERVICES_SCORE]: 1 });
         chrome.storage.local.set({ [AppSettings.MIN_SAFETY_SCORE]: 1 });
+        chrome.storage.local.set({ [AppSettings.MIN_ENVIRONMENT_SCORE]: 1 });
     }
 })
