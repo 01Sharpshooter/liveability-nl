@@ -1,8 +1,4 @@
-let minLiveabilityScore;
-let minDevelopmentScore;
-let minServicesScore;
-let minSafetyScore;
-let regionsEnabled;
+const filterMap = new Map();
 
 var timer;
 var e = document.querySelector(Settings.OBSERVER_SELECTOR);
@@ -18,11 +14,12 @@ if (e instanceof Node) {
 }
 
 const applyFiltersToCard = (liveabilityRegion) => {
-  if (regionsEnabled &&
-    (parseInt(liveabilityRegion.getAttribute("data-score")) < minLiveabilityScore ||
-      parseInt(liveabilityRegion.getAttribute("data-development")) < minDevelopmentScore ||
-      parseInt(liveabilityRegion.getAttribute("data-services")) < minServicesScore ||
-      parseInt(liveabilityRegion.getAttribute("data-safety")) < minSafetyScore )) {
+  if (filterMap.get(AppSettings.LIVEABILITY_REGIONS_ENABLED) &&
+    (parseInt(liveabilityRegion.getAttribute("data-score")) < filterMap.get(AppSettings.MIN_LIVEABILITY_SCORE) ||
+      parseInt(liveabilityRegion.getAttribute("data-development")) < filterMap.get(AppSettings.MIN_DEVELOPMENT_SCORE) ||
+      parseInt(liveabilityRegion.getAttribute("data-houses")) < filterMap.get(AppSettings.MIN_HOUSES_SCORE) ||
+      parseInt(liveabilityRegion.getAttribute("data-services")) < filterMap.get(AppSettings.MIN_SERVICES_SCORE) ||
+      parseInt(liveabilityRegion.getAttribute("data-safety")) < filterMap.get(AppSettings.MIN_SAFETY_SCORE))) {
     liveabilityRegion.parentNode.style.display = "none";
   } else {
     liveabilityRegion.parentNode.style.display = "inherit";
@@ -47,7 +44,7 @@ const addLiveabilityRegions = () => {
 const toggleLiveabilityRegions = () => {
   document.querySelectorAll(".liveability-region").forEach((node) => node.remove());
 
-  if (regionsEnabled) {
+  if (filterMap.get(AppSettings.LIVEABILITY_REGIONS_ENABLED)) {
     addLiveabilityRegions();
   } else {
     document.querySelectorAll(Settings.RESULT_SELECTOR).forEach((node) => {
@@ -63,44 +60,24 @@ const applyFiltersToAll = () => {
 }
 
 const readSettings = async () => {
-  regionsEnabled = await readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED);
-  minLiveabilityScore = await readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE);
-  minDevelopmentScore = await readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE);
-  minServicesScore = await readLocalSetting(AppSettings.MIN_SERVICES_SCORE);
-  minSafetyScore = await readLocalSetting(AppSettings.MIN_SAFETY_SCORE);
+  filterMap.set(AppSettings.LIVEABILITY_REGIONS_ENABLED, await readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED));
+  filterMap.set(AppSettings.MIN_LIVEABILITY_SCORE, await readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE));
+  filterMap.set(AppSettings.MIN_DEVELOPMENT_SCORE, await readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE));
+  filterMap.set(AppSettings.MIN_HOUSES_SCORE, await readLocalSetting(AppSettings.MIN_HOUSES_SCORE));
+  filterMap.set(AppSettings.MIN_SERVICES_SCORE, await readLocalSetting(AppSettings.MIN_SERVICES_SCORE));
+  filterMap.set(AppSettings.MIN_SAFETY_SCORE, await readLocalSetting(AppSettings.MIN_SAFETY_SCORE));
 }
 
-const readLiveabilityScore = () => {
-  readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE).then((score) => {
-    minLiveabilityScore = score;
-    applyFiltersToAll();
-  });
-}
-
-const readDevelopmentScore = () => {
-  readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE).then((score) => {
-    minDevelopmentScore = score;
-    applyFiltersToAll();
-  });
-}
-
-const readServicesScore = () => {
-  readLocalSetting(AppSettings.MIN_SERVICES_SCORE).then((score) => {
-    minServicesScore = score;
-    applyFiltersToAll();
-  });
-}
-
-const readSafetyScore = () => {
-  readLocalSetting(AppSettings.MIN_SAFETY_SCORE).then((score) => {
-    minSafetyScore = score;
+const setScoreFilter = (appSetting) => {
+  readLocalSetting(appSetting).then((score) => {
+    filterMap.set(appSetting, score);
     applyFiltersToAll();
   });
 }
 
 const readEnabled = () => {
   readLocalSetting(AppSettings.LIVEABILITY_REGIONS_ENABLED).then((enabled) => {
-    regionsEnabled = enabled;
+    filterMap.set(AppSettings.LIVEABILITY_REGIONS_ENABLED, enabled)
     toggleLiveabilityRegions();
   });
 }
@@ -110,19 +87,8 @@ const messageHandler = (message) => {
     case AppSettings.LIVEABILITY_REGIONS_ENABLED:
       readEnabled();
       break;
-    case AppSettings.MIN_LIVEABILITY_SCORE:
-      readLiveabilityScore();
-      break;
-    case AppSettings.MIN_DEVELOPMENT_SCORE:
-      readDevelopmentScore();
-      break;
-    case AppSettings.MIN_SERVICES_SCORE:
-      readServicesScore();
-      break;
-    case AppSettings.MIN_SAFETY_SCORE:
-      readSafetyScore();
-      break;
     default:
+      setScoreFilter(message);
       break;
   }
 }
