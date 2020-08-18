@@ -1,6 +1,7 @@
 const liveabilitySlider = document.getElementById("liveability-range-slider");
 const developmentSlider = document.getElementById("development-range-slider");
 const safetySlider = document.getElementById("safety-range-slider");
+const servicesSlider = document.getElementById("services-range-slider");
 
 const sliderChange = (value, appSetting) => {
     chrome.storage.local.set({ [appSetting]: value }, () => {
@@ -25,7 +26,7 @@ const drawLiveabilitySlider = () => {
     const range = liveabilitySlider.querySelector("input");
     const span = liveabilitySlider.querySelector(".range-slider-value");
 
-    const valueInPercentage = (range.value / range.max * 100) - 1;
+    const valueInPercentage = (range.value / range.max * 100) - 5;
     const backgroundColor = LiveabilityClasses[range.value]?.backgroundColor;
     span.innerHTML = LiveabilityClasses[range.value]?.meaning;
 
@@ -56,39 +57,40 @@ const drawDevelopmentSlider = () => {
     range.style.background = `linear-gradient(to right, ${backgroundColor} 0% ${valueInPercentage}%, #ccc ${valueInPercentage}% 100%)`;
 }
 
-const initSafetySlider = () => {
-    const range = safetySlider.querySelector("input");
+const initChartSlider = (slider, appSetting, color) => {
+    const range = slider.querySelector("input");
     const max = Object.keys(ChartIntervals).length;
     range.max = max;
 
     range.addEventListener("input", () => {
-        sliderChange(range.value, AppSettings.MIN_SAFETY_SCORE);
-        drawSafetySlider();
+        sliderChange(range.value, appSetting);
+        drawChartSlider(slider, color);
     });
 
-    drawSafetySlider();
+    drawChartSlider(slider, color);
 };
 
-const drawSafetySlider = () => {
-    const range = safetySlider.querySelector("input");
-    const span = safetySlider.querySelector(".range-slider-value");
+const drawChartSlider = (slider, color) => {
+    const range = slider.querySelector("input");
+    const span = slider.querySelector(".range-slider-value");
 
-    const valueInPercentage = ((range.value - range.min) / (range.max - range.min) * 100) - 1;
-    const backgroundColor = ChartCategories.SAFETY.color;
+    const valueInPercentage = (range.value / range.max * 100) - 5;
     span.innerHTML = ChartIntervals[range.value].name;
 
-    range.style.background = `linear-gradient(to right, ${backgroundColor} 0% ${valueInPercentage}%, #ccc ${valueInPercentage}% 100%)`;
+    range.style.background = `linear-gradient(to right, ${color} 0% ${valueInPercentage}%, #ccc ${valueInPercentage}% 100%)`;
 }
 
 const initAllSliders = () => {    
     initLiveabilitySlider();
     initDevelopmentSlider();
-    initSafetySlider();
+    initChartSlider(servicesSlider, AppSettings.MIN_SERVICES_SCORE, ChartCategories.SERVICES.color);
+    initChartSlider(safetySlider, AppSettings.MIN_SAFETY_SCORE, ChartCategories.SAFETY.color);
 }
 
-chrome.storage.local.get([AppSettings.MIN_LIVEABILITY_SCORE, AppSettings.MIN_DEVELOPMENT_SCORE, AppSettings.MIN_SAFETY_SCORE], (result) => {
+chrome.storage.local.get([AppSettings.MIN_LIVEABILITY_SCORE, AppSettings.MIN_DEVELOPMENT_SCORE, AppSettings.MIN_SERVICES_SCORE, AppSettings.MIN_SAFETY_SCORE], (result) => {
     liveabilitySlider.querySelector("input").value = result[AppSettings.MIN_LIVEABILITY_SCORE];
     developmentSlider.querySelector("input").value = result[AppSettings.MIN_DEVELOPMENT_SCORE];
+    servicesSlider.querySelector("input").value = result[AppSettings.MIN_SERVICES_SCORE]
     safetySlider.querySelector("input").value = result[AppSettings.MIN_SAFETY_SCORE];
     initAllSliders();
 });

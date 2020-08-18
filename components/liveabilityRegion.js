@@ -88,6 +88,7 @@ const getLiveabilityRegion = async (regionNumber, zipCode) => {
     const regionContent = getRegionContent();
 
     fetchChartData(zipCode).then((mapChartResults) => {
+        region.setAttribute("data-services", getChartInterval(mapChartResults.get(CSVColumns.SERVICES18))[0]);
         region.setAttribute("data-safety", getChartInterval(mapChartResults.get(CSVColumns.SAFETY18))[0]);
     });
 
