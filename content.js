@@ -18,6 +18,7 @@ const applyFiltersToCard = (liveabilityRegion) => {
     (parseInt(liveabilityRegion.getAttribute("data-score")) < filterMap.get(AppSettings.MIN_LIVEABILITY_SCORE) ||
       parseInt(liveabilityRegion.getAttribute("data-development")) < filterMap.get(AppSettings.MIN_DEVELOPMENT_SCORE) ||
       parseInt(liveabilityRegion.getAttribute("data-houses")) < filterMap.get(AppSettings.MIN_HOUSES_SCORE) ||
+      parseInt(liveabilityRegion.getAttribute("data-residents")) < filterMap.get(AppSettings.MIN_RESIDENTS_SCORE) ||
       parseInt(liveabilityRegion.getAttribute("data-services")) < filterMap.get(AppSettings.MIN_SERVICES_SCORE) ||
       parseInt(liveabilityRegion.getAttribute("data-safety")) < filterMap.get(AppSettings.MIN_SAFETY_SCORE))) {
     liveabilityRegion.parentNode.style.display = "none";
@@ -64,6 +65,7 @@ const readSettings = async () => {
   filterMap.set(AppSettings.MIN_LIVEABILITY_SCORE, await readLocalSetting(AppSettings.MIN_LIVEABILITY_SCORE));
   filterMap.set(AppSettings.MIN_DEVELOPMENT_SCORE, await readLocalSetting(AppSettings.MIN_DEVELOPMENT_SCORE));
   filterMap.set(AppSettings.MIN_HOUSES_SCORE, await readLocalSetting(AppSettings.MIN_HOUSES_SCORE));
+  filterMap.set(AppSettings.MIN_RESIDENTS_SCORE, await readLocalSetting(AppSettings.MIN_RESIDENTS_SCORE));
   filterMap.set(AppSettings.MIN_SERVICES_SCORE, await readLocalSetting(AppSettings.MIN_SERVICES_SCORE));
   filterMap.set(AppSettings.MIN_SAFETY_SCORE, await readLocalSetting(AppSettings.MIN_SAFETY_SCORE));
 }

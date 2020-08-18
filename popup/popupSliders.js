@@ -3,6 +3,7 @@ const developmentSlider = document.getElementById("development-range-slider");
 const safetySlider = document.getElementById("safety-range-slider");
 const servicesSlider = document.getElementById("services-range-slider");
 const housesSlider = document.getElementById("houses-range-slider");
+const residentsSlider = document.getElementById("residents-range-slider");
 
 const sliderChange = (value, appSetting) => {
     chrome.storage.local.set({ [appSetting]: value }, () => {
@@ -85,6 +86,7 @@ const initAllSliders = () => {
     initLiveabilitySlider();
     initDevelopmentSlider();
     initChartSlider(housesSlider, AppSettings.MIN_HOUSES_SCORE, ChartCategories.HOUSES.color);
+    initChartSlider(residentsSlider, AppSettings.MIN_RESIDENTS_SCORE, ChartCategories.RESIDENTS.color);
     initChartSlider(servicesSlider, AppSettings.MIN_SERVICES_SCORE, ChartCategories.SERVICES.color);
     initChartSlider(safetySlider, AppSettings.MIN_SAFETY_SCORE, ChartCategories.SAFETY.color);
 }
@@ -93,6 +95,7 @@ chrome.storage.local.get(
     [AppSettings.MIN_LIVEABILITY_SCORE
         , AppSettings.MIN_DEVELOPMENT_SCORE
         , AppSettings.MIN_SERVICES_SCORE
+        , AppSettings.MIN_RESIDENTS_SCORE
         , AppSettings.MIN_SAFETY_SCORE
         , AppSettings.MIN_HOUSES_SCORE],
     (result) => {
@@ -101,5 +104,6 @@ chrome.storage.local.get(
         servicesSlider.querySelector("input").value = result[AppSettings.MIN_SERVICES_SCORE]
         safetySlider.querySelector("input").value = result[AppSettings.MIN_SAFETY_SCORE];
         housesSlider.querySelector("input").value = result[AppSettings.MIN_HOUSES_SCORE];
+        residentsSlider.querySelector("input").value = result[AppSettings.MIN_RESIDENTS_SCORE];
         initAllSliders();
     });
