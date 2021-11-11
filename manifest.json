@@ -32,28 +32,36 @@
         "settings/pararius.js"
       ],
       "matches": [
-        "https://www.pararius.com/*"
+        "https://www.pararius.com/*",
+        "https://www.pararius.nl/*"
       ]
     },
     {
       "css": [
         "styles/styles.css",
         "styles/spinner.css",
-        "styles/dialog.css"
+        "styles/dialog.css",
+        "styles/pagination.css"
       ],
       "js": [
+        "resources/chartScripts.js",
+        "util/constants.js",
+        "util/helpers.js",
         "util/extension.js",
         "util/effects.js",
-        "resources/chartScripts.js",
+        "handlers/data-handler.js",
+        "handlers/page-handler.js",
+        "handlers/settings-handler.js",
+        "components/spinner.js",
         "components/liveabilityChart.js",
         "components/helpModal.js",
         "components/liveabilityRegion.js",
-        "util/constants.js",
-        "util/csvFunctions.js",
+        "components/pagination.js",
         "content.js"
       ],
       "matches": [
         "https://www.pararius.com/*",
+        "https://www.pararius.nl/*",
         "https://www.funda.nl/*"
       ]
     }

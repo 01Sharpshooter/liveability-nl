@@ -7,5 +7,10 @@ const Settings = Object.freeze({
         attributeFilter: ['class'],
         childList: false,
         characterData: false
+    },
+    RESULT_CONTAINER_SELECTOR: ".search-results",
+    PAGINATION_SELECTOR: "nav.pagination",
+    GET_RESULT_PAGE: (pageIndex) => {
+        return location.href.replace(/\/p\d*/g, "") + `/p${pageIndex}`;
     }
 });

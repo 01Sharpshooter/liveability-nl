@@ -21,7 +21,7 @@ const sendMessage = (message) => {
 }
 
 const readLocalSetting = (key) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         chrome.storage.local.get(key, (result) => {
             resolve(result[key]);
         });

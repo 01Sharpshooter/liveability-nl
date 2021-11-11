@@ -6,5 +6,10 @@ const Settings = Object.freeze({
         attributes: false,
         childList: true,
         characterData: false
+    },
+    RESULT_CONTAINER_SELECTOR: ".search-list",
+    PAGINATION_SELECTOR: ".page__row--search-pagination",
+    GET_RESULT_PAGE: (pageIndex) => {
+        return location.href.replace(/\/page-\d*/g, "") + `/page-${pageIndex}`;
     }
 });

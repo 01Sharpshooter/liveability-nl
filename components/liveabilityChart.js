@@ -6,13 +6,17 @@ const chartLabelsScript = document.createElement("script");
 chartLabelsScript.src = getResourceURL("chartScripts.js");
 document.body.appendChild(chartLabelsScript);
 
-const createChart = (chartId, chartClass, chartMap) => {
+const createChart = (chartId, chartClass, zipCode) => {
   const chartDiv = document.createElement("div");
   const canvas = document.createElement("canvas");
   const script = document.createElement("script");
 
   canvas.id = chartId;
   canvas.setAttribute("class", chartClass);
+
+  const extractData = (column) => {
+    return dataHandler.fetchFieldOfZipCode(zipCode, column);
+  }
 
   const chartText = document.createTextNode(`
       new Chart(document.getElementById("${chartId}"), {
@@ -26,27 +30,27 @@ const createChart = (chartId, chartClass, chartMap) => {
                 pointRadius: 0,
                 fill: false
               }, { 
-                data: [${chartMap.get(CSVColumns.HOUSES12)},${chartMap.get(CSVColumns.HOUSES14)},${chartMap.get(CSVColumns.HOUSES16)},${chartMap.get(CSVColumns.HOUSES18)}],
+                data: [${extractData(CSVColumns.HOUSES12)},${extractData(CSVColumns.HOUSES14)},${extractData(CSVColumns.HOUSES16)},${extractData(CSVColumns.HOUSES18)}],
                 label: "${ChartCategories.HOUSES.label}",
                 borderColor: "${ChartCategories.HOUSES.color}",
                 fill: false
               }, { 
-                data: [${chartMap.get(CSVColumns.RESIDENTS12)},${chartMap.get(CSVColumns.RESIDENTS14)},${chartMap.get(CSVColumns.RESIDENTS16)},${chartMap.get(CSVColumns.RESIDENTS18)}],
+                data: [${extractData(CSVColumns.RESIDENTS12)},${extractData(CSVColumns.RESIDENTS14)},${extractData(CSVColumns.RESIDENTS16)},${extractData(CSVColumns.RESIDENTS18)}],
                 label: "${ChartCategories.RESIDENTS.label}",
                 borderColor: "${ChartCategories.RESIDENTS.color}",
                 fill: false
               }, { 
-                data: [${chartMap.get(CSVColumns.SERVICES12)},${chartMap.get(CSVColumns.SERVICES14)},${chartMap.get(CSVColumns.SERVICES16)},${chartMap.get(CSVColumns.SERVICES18)}],
+                data: [${extractData(CSVColumns.SERVICES12)},${extractData(CSVColumns.SERVICES14)},${extractData(CSVColumns.SERVICES16)},${extractData(CSVColumns.SERVICES18)}],
                 label: "${ChartCategories.SERVICES.label}",
                 borderColor: "${ChartCategories.SERVICES.color}",
                 fill: false
               }, { 
-                data: [${chartMap.get(CSVColumns.SAFETY12)},${chartMap.get(CSVColumns.SAFETY14)},${chartMap.get(CSVColumns.SAFETY16)},${chartMap.get(CSVColumns.SAFETY18)}],
+                data: [${extractData(CSVColumns.SAFETY12)},${extractData(CSVColumns.SAFETY14)},${extractData(CSVColumns.SAFETY16)},${extractData(CSVColumns.SAFETY18)}],
                 label: "${ChartCategories.SAFETY.label}",
                 borderColor: "${ChartCategories.SAFETY.color}",
                 fill: false
               }, { 
-                data: [${chartMap.get(CSVColumns.ENVIRONMENT12)},${chartMap.get(CSVColumns.ENVIRONMENT14)},${chartMap.get(CSVColumns.ENVIRONMENT16)},${chartMap.get(CSVColumns.ENVIRONMENT18)}],
+                data: [${extractData(CSVColumns.ENVIRONMENT12)},${extractData(CSVColumns.ENVIRONMENT14)},${extractData(CSVColumns.ENVIRONMENT16)},${extractData(CSVColumns.ENVIRONMENT18)}],
                 label: "${ChartCategories.ENVIRONMENT.label}",
                 borderColor: "${ChartCategories.ENVIRONMENT.color}",
                 fill: false

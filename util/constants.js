@@ -63,3 +63,7 @@ const AppSettings = Object.freeze({
   MIN_SAFETY_SCORE: "MIN_SAFETY_SCORE",
   MIN_ENVIRONMENT_SCORE: "MIN_ENVIRONMENT_SCORE"
 });
+
+const MessageTypes = Object.freeze({
+  SETTINGS_CHANGE: "SETTINGS_CHANGE"
+});

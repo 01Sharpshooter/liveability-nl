@@ -8,7 +8,7 @@ const environmentSlider = document.getElementById("environment-range-slider");
 
 const sliderChange = (value, appSetting) => {
     chrome.storage.local.set({ [appSetting]: value }, () => {
-        sendMessage(appSetting);
+        sendMessage({ type: MessageTypes.SETTINGS_CHANGE, setting: appSetting, value });
     });
 }
 

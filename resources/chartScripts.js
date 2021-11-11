@@ -6,6 +6,7 @@ const chartYLabels = Object.freeze({
     [-0.2]: "Way Below Average"
 });
 
+// educated guesstimation, might have to do an actual calculation (manually)
 const ChartIntervals = Object.freeze({
     1: { name: "Way Below Average", maxValue: -0.2 },
     2: { name: "Below Average", maxValue: -0.1 },
